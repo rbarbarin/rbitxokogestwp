@@ -1,16 +1,31 @@
 <?php
 
-/**
-* @link https://www.rbisysadmin.com/
-* @since 0.0.1
-* Plugin Name: RBI TxokoGest
-* Plugin URI: https://www.txokogest.com/
-* Description: Gestión de Txokos y asociaciones
-* Version: 0.0.1
-* Author: RBI
-*/
+defined( 'ABSPATH' ) or die( 'Nope, not accessing this' );
 
 // admin page
+
+/** Step 2 (from text above). */
+add_action( 'admin_menu', 'rbitxg_menu' );
+
+/** Step 1. */
+function rbitxg_menu() {
+	add_menu_page( 'RBI TxokoGest Options', 'RBI TxokoGest', 'manage_options', 'rbitxgplugin', 'rbitxg_options' );
+    add_submenu_page( 'rbitxgplugin', 'My Custom Page', 'My Custom Page', 'manage_options', 'my-top-level-slug');
+    add_submenu_page( 'rbitxgplugin', 'My Custom Submenu Page', 'My Custom Submenu Page', 'manage_options', 'my-secondary-slug');
+}
+
+/** Step 3. */
+function rbitxg_options() {
+	if ( !current_user_can( 'manage_options' ) )  {
+		wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
+	}
+	echo '<div class="wrap">';
+	echo '<p>Here is where the form would go if I actually had options.</p>';
+	echo '</div>';
+}
+
+
+/*
 
 add_action('admin_init', 'rbitxg_display_options');
 add_action('admin_menu', 'rbitxg_cp_AdminMenu');
@@ -117,4 +132,7 @@ function rbitxgCheckboxRender_6(){
 $options = get_option('rbitxgtest1_options');
 ?>
 <input name="rbitxgtest1_options[rbitxg_checkbox_field_6]" type="checkbox" value = "1" />
-<?php } ?>
+<?php } 
+*/
+
+?>

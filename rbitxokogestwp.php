@@ -11,40 +11,40 @@
 * Author URI: https://www.rbisysadmin.com/
 */
 
-register_activation_hook(__FILE__, 'rbitxgCreateTables');
+defined( 'ABSPATH' ) or die( 'Nope, not accessing this' );
 
-function rbitxgCreateTables() {
-	global $wpdb;
-	$charset_collate = $wpdb->get_charset_collate();
-
-	$table_name = $wpdb->prefix . 'rbitxg_reservas';
-	$sql = "CREATE TABLE $table_name (
-	    reser_id int(20) NOT NULL AUTO_INCREMENT,
-		user varchar(64) NOT NULL DEFAULT '',
-		fecha datetime DEFAULT CURRENT_TIMESTAMP NOT NULL,
-		turno varchar(20) NOT NULL DEFAULT '',
-		element varchar(20) NOT NULL DEFAULT '',
-		PRIMARY KEY (reser_id)
-	    ) $charset_collate;
-		";
-	if ($wpdb->get_var("SHOW TABLES LIKE '$table_name'") != $table_name) {
-    require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
-    dbDelta($sql);
-	}
-
-	$table_name = $wpdb->prefix . 'rbitxg_element';
-	$sql = "CREATE TABLE $table_name (
-	    element_id int(20) NOT NULL AUTO_INCREMENT,
-		name varchar(64) NOT NULL DEFAULT '',
-		description varchar(200) NOT NULL DEFAULT '',
-		PRIMARY KEY (element_id)
-	    ) $charset_collate;
-		";
-	if ($wpdb->get_var("SHOW TABLES LIKE '$table_name'") != $table_name) {
-    require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
-    dbDelta($sql);
-	}
+/**
+ * The code that runs during plugin activation.
+ */
+function activate_rbitxg() {
+	require_once plugin_dir_path( __FILE__ ) . 'includes/rbitxg_activate.php';
 }
+
+/**
+ * The code that runs during plugin deactivation.
+ */
+function deactivate_rbitxg() {
+	require_once plugin_dir_path( __FILE__ ) . 'includes/rbitxg_deactivate.php';
+}
+
+register_activation_hook( __FILE__, 'activate_rbitxg' );
+register_deactivation_hook( __FILE__, 'deactivate_rbitxg' );
+
+
+/**
+ * Add menu for admin 
+ */
+ 
+if (is_admin()) {
+	require_once plugin_dir_path( __FILE__ ) . 'admin/rbitxgadm.php';
+  }
+
+
+  // Call shortcodes
+  require_once plugin_dir_path( __FILE__ ) . 'includes/rbitxg_shortcode.php';
+  
+  // Call widgets
+  require_once plugin_dir_path( __FILE__ ) . 'includes/rbitxg_widget.php';
 
 
 ?>
