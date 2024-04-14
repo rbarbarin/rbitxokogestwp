@@ -4,23 +4,49 @@ defined( 'ABSPATH' ) or die( 'Nope, not accessing this' );
 
 // admin page
 
-/** Step 2 (from text above). */
 add_action( 'admin_menu', 'rbitxg_menu' );
 
-/** Step 1. */
+/** Configure menu and submenu */
 function rbitxg_menu() {
-	add_menu_page( 'RBI TxokoGest Options', 'RBI TxokoGest', 'manage_options', 'rbitxgplugin', 'rbitxg_options' );
-    add_submenu_page( 'rbitxgplugin', 'My Custom Page', 'My Custom Page', 'manage_options', 'my-top-level-slug');
-    add_submenu_page( 'rbitxgplugin', 'My Custom Submenu Page', 'My Custom Submenu Page', 'manage_options', 'my-secondary-slug');
+	add_menu_page( 'RBI TxokoGest Options', 'RBI TxokoGest', 'manage_options', 'rbitxgplugin', 'rbitxg_options', 'dashicons-schedule');
+    add_submenu_page( 'rbitxgplugin', 'Turns', 'Turns', 'manage_options', 'rbitxgturns', 'rbitxg_turns');
+    add_submenu_page( 'rbitxgplugin', 'Objects', 'Objects', 'manage_options', 'rbitxgobjects', 'rbitxg_objects');
 }
 
-/** Step 3. */
+/** functions for menus */
 function rbitxg_options() {
 	if ( !current_user_can( 'manage_options' ) )  {
 		wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
 	}
 	echo '<div class="wrap">';
 	echo '<p>Here is where the form would go if I actually had options.</p>';
+	echo '</div>';
+}
+
+function rbitxg_turns() {
+	if ( !current_user_can( 'manage_options' ) )  {
+		wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
+	}
+	echo '<div class="wrap">';
+	echo '<p>Here is where configure the turns.</p>';
+	echo '</div>';
+}
+
+function rbitxg_objects() {
+	if ( !current_user_can( 'manage_options' ) )  {
+		wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
+	}
+	echo '<div class="wrap">';
+	echo '<p>Here is where configure the objects.</p>';
+	if (is_user_logged_in()){
+		$current_user = wp_get_current_user();
+		$user_id = $current_user->ID;
+		$username = $current_user->user_login;
+		$user_email = $current_user->user_email;
+	  }
+	  echo '<p>User ID: '.$user_id.'</p>';
+	  echo '<p>User Name: '.$username.'</p>';
+	  echo '<p>User e-mail: '.$user_email.'</p>';
 	echo '</div>';
 }
 

@@ -1,0 +1,33 @@
+Using get_current_user_id() to get the current WordPress user ID
+
+$user_id = get_current_user_id();
+echo $user_id; // 123
+
+If the user is not logged in, this function will return 0. You can use this to perform actions only when the user is logged in:
+
+$user_id = get_current_user_id();
+ 
+if ($user_id !== 0){
+  // perform actions for logged in users
+} else {
+  // user is not logged in
+}
+
+if (is_user_logged_in()){
+  $user_id = get_current_user_id();
+}
+
+Using wp_get_current_user() to get the current user ID
+Another way to retrieve the current WordPress user ID is using the wp_get_current_user() function. This function returns an instance of WP_User class and can be more appropriate when accessing additional information about the current user.
+ 
+$current_user = wp_get_current_user();
+$user_id = $current_user->ID;
+
+As mentioned above, when using the wp_get_current_user() function, you can retrieve additional information from the user object:
+
+if (is_user_logged_in()){
+  $current_user = wp_get_current_user();
+  $user_id = $current_user->ID;
+  $username = $current_user->user_login;
+  $user_email = $current_user->user_email;
+}
