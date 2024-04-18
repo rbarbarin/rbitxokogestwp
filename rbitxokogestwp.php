@@ -40,11 +40,11 @@ if (is_admin()) {
   }
 
 
-  // Call shortcodes
-  require_once plugin_dir_path( __FILE__ ) . 'includes/rbitxg_shortcode.php';
+// Call shortcodes
+ require_once plugin_dir_path( __FILE__ ) . 'includes/rbitxg_shortcode.php';
   
-  // Call widgets
-  require_once plugin_dir_path( __FILE__ ) . 'includes/rbitxg_widget.php';
+ // Call widgets
+ require_once plugin_dir_path( __FILE__ ) . 'includes/rbitxg_widget.php';
 
 
 ?>

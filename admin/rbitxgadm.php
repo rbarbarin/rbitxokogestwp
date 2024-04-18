@@ -9,7 +9,7 @@ add_action( 'admin_menu', 'rbitxg_menu' );
 /** Configure menu and submenu */
 function rbitxg_menu() {
 	add_menu_page( 'RBI TxokoGest Options', 'RBI TxokoGest', 'manage_options', 'rbitxgplugin', 'rbitxg_options', 'dashicons-schedule');
-    add_submenu_page( 'rbitxgplugin', 'Turns', 'Turns', 'manage_options', 'rbitxgturns', 'rbitxg_turns');
+    add_submenu_page( 'rbitxgplugin', 'Turnos', 'Turnos', 'manage_options', 'rbitxgshifts', 'rbitxg_shifts');
     add_submenu_page( 'rbitxgplugin', 'Objects', 'Objects', 'manage_options', 'rbitxgobjects', 'rbitxg_objects');
 }
 
@@ -23,13 +23,11 @@ function rbitxg_options() {
 	echo '</div>';
 }
 
-function rbitxg_turns() {
+function rbitxg_shifts() {
 	if ( !current_user_can( 'manage_options' ) )  {
 		wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
 	}
-	echo '<div class="wrap">';
-	echo '<p>Here is where configure the turns.</p>';
-	echo '</div>';
+	require_once plugin_dir_path( __FILE__ ) . 'rbitxgshiftadm.php';
 }
 
 function rbitxg_objects() {
